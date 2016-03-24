@@ -2,29 +2,28 @@
 
 var app = angular.module('adoptApp');
 
-app.controller('homeCtrl', function($scope, AdoptService) {
+app.controller('homeCtrl', function($scope, AdoptService, $rootScope) {
 	$scope.$on('got-pet-details', args => $scope.pet = AdoptService.petDetail);
 	$scope.$on('got-owner-details', args => $scope.owner = AdoptService.ownerDetail);
+
 	$scope.editPet = false;
 	$scope.editOwner = false;
 
-	$scope.createPet = function() {
+	var petMsg = 'got-pets';
+	var ownMsg = 'got-owners';
+
+	$scope.createPet = () => {
 		AdoptService.createNewPet($scope.newPet);
 		$scope.newPet = {};
-	}
+	};
 
-	$scope.createOwner = function() {
+	$scope.createOwner = () => {
 		AdoptService.createNewOwner($scope.newOwner);
 		$scope.newOwner = {};
-	}
+	};
 
-	$scope.removeOwner = function() {
-		AdoptService.removeOwner($scope.owner);
-	}
-
-	$scope.removePet = function() {
-		AdoptService.removePet($scope.pet);
-	}
+	$scope.removeOwner = () => AdoptService.removeOwner($scope.owner);
+	$scope.removePet = () => AdoptService.removePet($scope.pet);
 
 	$scope.submitAdoption = function() {
 		$scope.pet.adopted = true;
@@ -33,22 +32,17 @@ app.controller('homeCtrl', function($scope, AdoptService) {
 		AdoptService.updatePet($scope.pet, $scope.owner);
 	};
 
-	$scope.editPet = function() {
-		$scope.editPet = true;
-	}
+	$scope.editPet = () => $scope.editPet = true;
+	$scope.editOwner = () => $scope.editOwner = true;
 
 	$scope.savePetEdit = function() {
 		$scope.editPet = false;
 		AdoptService.updatePet($scope.pet);
-	}
-
-	$scope.editOwner = function() {
-		$scope.editOwner = true;
-	}
+	};
 
 	$scope.saveOwnerEdit = function() {
 		$scope.editOwner = false;
 		AdoptService.updateOwner($scope.owner);
-	}
+	};
 
 });

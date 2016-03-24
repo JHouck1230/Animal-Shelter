@@ -3,21 +3,19 @@
 var app = angular.module('adoptApp');
 
 app.controller('petsCtrl', function($scope, AdoptService) {
-	$scope.$on('got-pets', args => $scope.pets = AdoptService.pets);
-	// $scope.$watch(AdoptService.pets, function(newPets) {
-	// 	$scope.pets = AdoptService.pets;
-	// });
+	$scope.$on('got-pets', (events, args) => $scope.pets = AdoptService.pets);
+	
+	$scope.getPets = () => AdoptService.getPets();
 
 	$scope.getPetDetail = function(pet) {
 		AdoptService.getPetDetail(pet);
 	};
 
-	$scope.getPets = function() {
-		AdoptService.getPets();
-	};
-
 	$scope.getAvailPets = function() {
-		AdoptService.getAvailPets();
+		AdoptService.getAvailPets()
+		.then(res => {
+			$scope.pets = res.data;
+		}, err => console.error(err))
 	};
 
 });
