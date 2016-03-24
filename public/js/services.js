@@ -68,6 +68,10 @@ app.service('AdoptService', function($http, $rootScope) {
 		}, err => console.error(err))
 	};
 
+	this.unadoption = (pet, owner) => {
+		$http.put(`/owners/${owner._id}/removePets`, pet)
+	}
+
 	this.updatePet = (pet, owner) => {
 		$http.put(`/pets/${pet._id}`, pet)
 			.then(resp => {

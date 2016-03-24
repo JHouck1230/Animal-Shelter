@@ -27,7 +27,7 @@ app.controller('homeCtrl', function($scope, AdoptService, $rootScope) {
 
 	$scope.submitAdoption = function() {
 		$scope.pet.adopted = true;
-		$scope.pet.owner = owner.name;
+		$scope.pet.owner = $scope.owner.name;
 		AdoptService.submitAdoption($scope.pet, $scope.owner);
 		AdoptService.updatePet($scope.pet, $scope.owner);
 	};

@@ -7,9 +7,7 @@ app.controller('petsCtrl', function($scope, AdoptService) {
 	
 	$scope.getPets = () => AdoptService.getPets();
 
-	$scope.getPetDetail = function(pet) {
-		AdoptService.getPetDetail(pet);
-	};
+	$scope.getPetDetail = (pet) => AdoptService.getPetDetail(pet);
 
 	$scope.getAvailPets = function() {
 		AdoptService.getAvailPets()
