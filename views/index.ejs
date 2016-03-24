@@ -4,17 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Adopt A Pet</title>
 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="/bower_components/Materialize/dist/css/materialize.min.css">
+	<link rel="stylesheet" href="/bower_components/angular-materialize/css/style.css">
 	<link rel="stylesheet" href="/css/style.css">
 
 	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="/bower_components/Materialize/dist/js/materialize.min.js"></script>
 	<script src="/bower_components/angular/angular.min.js"></script>	
 	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="/bower_components/angular-materialize/src/angular-materialize.js"></script>
 	<script src="/js/module.js"></script>
+	<script src="/js/homeCtrl.js"></script>
+	<script src="/js/petsCtrl.js"></script>
+	<script src="/js/ownersCtrl.js"></script>
+	<script src="/js/services.js"></script>
 
 </head>
 <body ng-app='adoptApp'>
-	<div ui-view='home'></div>
+	<ui-view></ui-view>
 </body>
 </html>

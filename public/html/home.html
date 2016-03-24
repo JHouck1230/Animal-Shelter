@@ -1,11 +1,183 @@
+<div class="col s12">
+	<h1>Adopt A Pet</h1>
+</div>
+<hr>
 <div class="row">
-	<div class="col s3">
+	<div class="col s2">
 		<div ui-view='pets'></div>
 	</div>
-	<div class="col s6">
-		<h1>Home</h1>
+	<div class="col s3">
+		<h1>Pets Detail</h1>
+		<div ng-show='pet' class="card">
+	    <div class="card-image waves-effect waves-block waves-light">
+	      <img class="activator" ng-src="{{pet.image}}">
+	    </div>
+	    <div class="card-content">
+	      <span class="card-title activator grey-text text-darken-4">{{pet.name}}<i class="material-icons right">more_vert</i></span>
+	    </div>
+	    <div class="card-reveal">
+	      <span ng-hide='editPet' class="card-title grey-text text-darken-4">{{pet.name}}<i class="material-icons right">close</i></span>
+	      <input ng-model='pet.name' type="text" ng-show='editPet'>
+	      <span ng-hide='editPet'>Age: {{pet.age}}</span>
+	      <br>
+	      <input ng-model='pet.age' type="number" ng-show='editPet'>
+	      <span ng-hide='editPet'>Species: {{pet.species}}</span>
+	      <br>
+	      <input ng-model='pet.species' type="text" ng-show='editPet'>
+	      <span ng-hide='editPet'>Breed: {{pet.breed}}</span>
+	      <br>
+	      <input ng-model='pet.breed' type="text" ng-show='editPet'>
+	      <span ng-hide='editPet'>Adopted: {{pet.adopted}}</span>
+	      <br>
+	      <input ng-model='pet.adopted' type="checkbox" ng-show='editPet'>
+	      <span ng-hide='editPet'>Owner: {{pet.owner || 'No Owner'}}</span>
+	      <input ng-model='pet.owner' type="text" ng-show='editPet'>
+	      <h5 ng-hide='editPet'>About Me</h5>
+	      <input ng-show='editPet' id='petImage' type="text" ng-model='pet.image'>
+	      <p ng-hide='editPet'>{{pet.description}}</p>
+	      <input ng-model='pet.description' type="text" ng-show='editPet'>
+	      <div class='buttons'>
+	        <input type="checkbox" ng-model='pet.adopt' class="filled-in" checked='pet.adopted'/>
+		      <label for="adoptPet">Adopt this pet?</label>
+	      	<a ng-hide='editPet' ng-click='editPet()' class='btn btn-floating waves-effect waves-light yellow'><i class="material-icons">mode_edit</i></a>
+	      	<a ng-show='editPet' ng-click='savePetEdit()' class='btn btn-floating waves-effect waves-light blue'><i class="material-icons">done</i></a>
+	      	<a ng-click='removePet()' class='btn btn-floating waves-effect waves-light red'><i class="material-icons">delete</i></a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="col s1 newItemDiv">
+		<a class="menu btn-floating btn-large waves-effect waves-light modal-trigger" enable-tabs='true' href='#myModal' modal alt='Create New'><i class="material-icons">add</i></a><br>
+		<a ng-click='submitAdoption()' ng-show='pet.adopt && owner.adopt' class="menu btn-floating btn-large waves-effect waves-light" alt='Submit Adoption'><i class="fa fa-paw"></i></a>
 	</div>
 	<div class="col s3">
+		<h1>Owner Detail</h1>
+		<div ng-show='owner' class="card">
+	    <div class="card-image waves-effect waves-block waves-light">
+	      <img class="activator" ng-src="{{owner.image}}">
+	    </div>
+	    <div class="card-content">
+	      <span class="card-title activator grey-text text-darken-4">{{owner.name}}<i class="material-icons right">more_vert</i></span>
+	    </div>
+	    <div class="card-reveal">
+	      <span ng-hide='editOwner' class="card-title grey-text text-darken-4">{{owner.name}}<i class="material-icons right">close</i></span>
+	      <input ng-model='owner.name' ng-show='editOwner' type="text">
+	      <span ng-hide='editOwner'>Phone: {{owner.phone}}</span><br>
+	      <input ng-model='owner.phone' ng-show='editOwner' type="tel">
+	      <span ng-hide='editOwner'>Address: {{owner.address}}</span>
+	      <input ng-model='owner.address' ng-show='editOwner' type="text">
+	      <ul>
+		      <span>Adopted Pets:</span>
+		      <li ng-repeat='adoptedPet in owner.pets track by $index'><span>{{adoptedPet.name}}</span>
+						<img ng-src="{{adoptedPet.image}}" class='adoptImg'>
+						<input ng-show='editOwner' type="checkbox">
+		      </li>
+	      </ul>
+	      <div class='buttons'>
+	        <input type="checkbox" ng-model='owner.adopt' class="filled-in" id="adoptOwner"/>
+		      <label for="adoptOwner">Adopt a pet?</label>
+	      	<a ng-hide='editOwner' ng-click='editOwner()' class='btn btn-floating waves-effect waves-light yellow'><i class="material-icons">mode_edit</i></a>
+	      	<a ng-show='editOwner' ng-click='saveOwnerEdit()' class='btn btn-floating waves-effect waves-light blue'><i class="material-icons">done</i></a>
+	      	<a ng-click='removeOwner()' class='btn btn-floating waves-effect waves-light red'><i class="material-icons">delete</i></a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="col s2">
 		<div ui-view='owners'></div>
 	</div>
 </div>
+
+
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <div class="row">
+		  <div class="col s12">
+		    <ul class="tabs" tabs>
+		      <li class="tab col s3"><a class="active" href="#newPet">New Pet</a></li>
+		      <li class="tab col s3"><a href="#newOwner">New Owner</a></li>
+		    </ul>
+		  </div>
+		  <div id="newPet" class="col s12">
+	      <h4>New Pet</h4>
+				<div class="row">
+					<form class="col s12" name='petForm' novalidate>
+					  <div class="row">
+					    <div class="input-field col s6">
+					      <input id="petName" type="text" class="validate" ng-model='newPet.name' required>
+					      <label for="petName">Pet Name</label>
+					    </div>
+					    <div class="input-field col s6">
+					      <input id="petAge" type="number" class="validate" ng-model='newPet.age' required>
+					      <label for="petAge">Age</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s6">
+					      <input id="species" type="text" class="validate" ng-model='newPet.species' required>
+					      <label for="species">Species</label>
+					    </div>
+					    <div class="input-field col s6">
+					      <input id="breed" type="text" class="validate" ng-model='newPet.breed' required>
+					      <label for="breed">Breed</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					  	<div class="input-field col s12">
+					  		<input id='petImage' type="text" class='validate' ng-model='newPet.image' required>
+					  		<label for="petImage">Photograph URL</label>
+					  		<img ng-src="{{newPet.image}}" ng-show='newPet.image'>
+					  	</div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <textarea id="description" class="materialize-textarea" ng-model='newPet.description' required></textarea>
+			          <label for="description">About Me</label>
+					    </div>
+					  </div>
+					</form>
+				</div>
+	      <div class="modal-footer">
+	        <button href="#!" ng-click='createPet()' class="modal-action modal-close waves-effect waves-green btn blue" type="submit" name="action" ng-disabled='petForm.$invalid'>Submit<i class="material-icons right">send</i>
+				  </button>
+		    </div>	
+		  </div>
+		  <div id="newOwner" class="col s12">
+	      <h4>New Owner</h4>
+	      <div class="row">
+					<form class="col s12" name='ownerForm' novalidate>
+					  <div class="row">
+					    <div class="input-field col s6">
+					      <input id="ownerName" type="text" class="validate" ng-model='newOwner.name' required>
+					      <label for="ownerName">Owner Name</label>
+					    </div>
+					    <div class="input-field col s6">
+					      <input id="ownerPhone" type="tel" class="validate" ng-model='newOwner.phone' required>
+					      <label for="ownerPhone">Phone Number</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <input id="address" type="text" class="validate" ng-model='newOwner.address' required>
+					      <label for="address">Address</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					  	<div class="input-field col s12">
+					  		<input id='ownerImage' type="text" class='validate' ng-model='newOwner.image' required>
+					  		<label for="ownerImage">Photograph URL</label>
+					  		<img ng-src="{{newOwner.image}}" ng-show='newOwner.image'>
+					  	</div>
+					  </div>
+					</form>
+				</div>
+  	    <div class="modal-footer">
+		      <button href="#!" ng-click='createOwner()' class="modal-action modal-close waves-effect waves-green btn blue" type="submit" name="action" ng-disabled='ownerForm.$invalid'>Submit<i class="material-icons right">send</i>
+				  </button>
+		    </div>
+		  </div>
+		</div>
+  </div>
+</div>
+

@@ -1,0 +1,76 @@
+body {
+	background: 
+		url(https://images.unsplash.com/photo-1428190318100-06790c8b2e5a?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0933721d1ecb217d4864800508317574)
+		top center
+		no-repeat
+		fixed;
+	height: 100%;
+	width: 100%;
+	overflow: none;
+}
+
+.petName {
+	float: left;
+}
+
+.list {
+	padding: 0px 10px;
+}
+
+.listItem {
+	text-align: center;
+	border: 1px solid black;
+	margin: 5px 0px;
+	background-color: #fff;
+}
+
+.adoptImg {
+	width: 60px;
+	height: 60px;
+}
+
+.petItem {
+	cursor: pointer;
+	padding: 5px 15px;
+}
+
+.menu {
+	margin-bottom: 15px;
+}
+
+.newItemDiv {
+	text-align: center;
+	padding: 40px;
+	margin-top: 8%;
+}
+
+.h1 {
+	padding: 10px;
+}
+
+.listHead {
+	font-size: 25px;
+}
+
+.buttons {
+	float: right;
+}
+
+.ownerItem {
+	cursor: pointer;
+	text-align: center;
+	padding: 5px;
+}
+
+.adopt {
+	float: right;
+}
+
+h1 {
+	text-align: center;
+}
+
+.listHeader {
+	padding: 5px 15px;
+	font-weight: bold;
+}

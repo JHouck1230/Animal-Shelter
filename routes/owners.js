@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 var Owner = require('../models/owner');
+var Pet = require('../models/pet');
 
 router.get('/', function(req, res) {
 	Owner.find({}, function(err, owners) {
@@ -17,6 +18,14 @@ router.get('/newOwners', function(req, res) {
 	});
 });
 
+router.get('/:id', function(req, res) {
+	Owner.findById(req.params.id)
+		.populate('pets')
+		.exec(function(err, owner) {
+		res.status(err ? 400 : 200).send(err || owner);
+	})
+})
+
 router.post('/', function(req, res) {
 	var owner = new Owner(req.body);
 	owner.save(function(err, savedOwner) {
@@ -25,9 +34,10 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:ownerId/addPets', function(req, res) {
+	console.log(req.body);
 	Owner.findById(req.params.ownerId, function(err, owner) {
 		if(err || !owner) return res.status(400).send(err || 'Owner not found.');
-		Pet.find({_id: {$in: req.body.petIds}}, function(err, pets) {
+		Pet.find({_id: req.body._id}, function(err, pets) {
 			if(err) return res.status(400).send(err);
 			var petIds = pets.map(pet => pet._id);
 			owner.pets = owner.pets.concat(petIds);

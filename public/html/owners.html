@@ -1,1 +1,6 @@
 <h1>Owners</h1>
+<ul class="list">
+	<li ng-click='getOwnerDetail(own)' class='ownerItem listItem' ng-repeat='own in owners track by $index'>
+		<span>{{own.name}}</span>
+	</li>
+</ul>

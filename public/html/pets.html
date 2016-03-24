@@ -1,1 +1,21 @@
 <h1>Pets</h1>
+<div class="row">
+	<div class="col s6">
+		<button ng-click='getPets()' class='btn waves-effect waves-light filtBut'>All Pets</button>
+	</div>
+	<div class="col s6">
+		<button ng-click='getAvailPets()' class='btn waves-effect waves-light filtBut'>Unowned Pets</button>
+	</div>
+</div>
+<ul class="list">
+	<li class=' listItem listHeader'>
+		<span class='petName'>Name</span>
+		<span class='petSpec'>Species</span>
+		<span class='adopt'>Adopted</span>
+	</li>
+	<li ng-click='getPetDetail(pet)' class='petItem listItem' ng-repeat='pet in pets track by $index'>
+		<span class='petName'>{{pet.name}}</span>
+		<span class='petSpec'>{{pet.species}}</span>
+		<span class='adopt'>{{pet.adopted}}</span>
+	</li>
+</ul>

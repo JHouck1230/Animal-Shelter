@@ -1,19 +1,21 @@
 'use strict';
 
-var app = angular.module('adoptApp', ['ui.router']);
+var app = angular.module('adoptApp', ['ui.router','ui.materialize']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	.state('home', {
 		url: '/',
-		templateUrl: '/html/home.html',
-		controller: 'homeCtrl',
 		views: {
-			'pets': {
+			'': {
+				templateUrl: 'html/home.html',
+				controller: 'homeCtrl'
+			},
+			'pets@home': {
 				templateUrl: '/html/pets.html',
 				controller: 'petsCtrl'
 			},
-			'owner': {
+			'owners@home': {
 				templateUrl: '/html/owners.html',
 				controller: 'ownersCtrl'
 			}
@@ -21,3 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	$urlRouterProvider.otherwise('/');
 });
+app.run(function(AdoptService) {
+	AdoptService.getPets();
+	AdoptService.getOwners();
+})

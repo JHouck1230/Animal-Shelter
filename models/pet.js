@@ -13,6 +13,6 @@ var petsSchema = new mongoose.Schema({
 	adopted: {type: Boolean, default: false}
 });
 
-var Pets = mongoose.model('Pets', petsSchema);
+var Pet = mongoose.model('Pet', petsSchema);
 
-module.exports = Pets;
+module.exports = Pet;
