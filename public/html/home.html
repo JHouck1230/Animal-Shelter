@@ -37,14 +37,14 @@
 	      <p ng-hide='editPet'>{{pet.description}}</p>
 	      <input ng-model='pet.description' type="text" ng-show='editPet'>
 	      <div class='buttons'>
-	        <input type="checkbox" ng-model='pet.adopt' class="filled-in" checked='pet.adopted'/>
+	        <input id='adoptPet' class="filled-in" ng-model='pet.adopt' type="checkbox"/>
 		      <label for="adoptPet">Adopt this pet?</label>
 	      	<a ng-hide='editPet' ng-click='editPet()' class='btn btn-floating waves-effect waves-light yellow'><i class="material-icons">mode_edit</i></a>
 	      	<a ng-show='editPet' ng-click='savePetEdit()' class='btn btn-floating waves-effect waves-light blue'><i class="material-icons">done</i></a>
 	      	<a ng-click='removePet()' class='btn btn-floating waves-effect waves-light red'><i class="material-icons">delete</i></a>
 	      </div>
 	    </div>
-	  </div>
+	  </div>	  
 	</div>
 	<div class="col s1 newItemDiv">
 		<a class="menu btn-floating btn-large waves-effect waves-light modal-trigger" enable-tabs='true' href='#myModal' modal alt='Create New'><i class="material-icons">add</i></a><br>

@@ -45,4 +45,9 @@ app.controller('homeCtrl', function($scope, AdoptService, $rootScope) {
 		AdoptService.updateOwner($scope.owner);
 	};
 
+	$scope.toggleAdopt = function(pet) {
+		console.log('pet ', pet);
+		$scope.pet.adopted = !$scope.pet.adopted;
+	};
+
 });
